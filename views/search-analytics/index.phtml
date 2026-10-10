@@ -1,0 +1,119 @@
+<?php
+
+use Osmium\Modules\Admin\Core\ListView;
+
+require_once 'app/modules/admin/core/ListView.php';
+
+$listContext = ['adminUrl' => $adminUrl, 'isAdmin' => $admin['isAdmin'] ?? false];
+$lists = $admin['lists'];
+?>
+<div class="d-flex justify-content-between align-items-center py-3 mb-4">
+    <h4 class="mb-0">
+        <span class="text-muted fw-light">Content / Shop /</span> Search Analytics
+    </h4>
+</div>
+
+<!-- Summary Cards -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="avatar avatar-md me-3">
+                        <span class="avatar-initial rounded bg-label-primary">
+                            <i class="bx bx-search"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <h4 class="mb-0"><?= \number_format($admin['totalSearches']) ?></h4>
+                        <small class="text-muted">Total Searches (30 days)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="avatar avatar-md me-3">
+                        <span class="avatar-initial rounded bg-label-success">
+                            <i class="bx bx-text"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <h4 class="mb-0"><?= \number_format($admin['uniqueTerms']) ?></h4>
+                        <small class="text-muted">Unique Terms</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="avatar avatar-md me-3">
+                        <span class="avatar-initial rounded bg-label-danger">
+                            <i class="bx bx-x-circle"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <h4 class="mb-0"><?= \number_format($admin['failedCount']) ?></h4>
+                        <small class="text-muted">Failed Searches</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <?= ListView::render($lists['top'], $admin['topSearches'], $listContext) ?>
+    </div>
+    <div class="col-lg-6">
+        <?= ListView::render($lists['failed'], $admin['failedSearches'], $listContext) ?>
+    </div>
+</div>
+
+<!-- Add Synonym Modal -->
+<div class="modal fade" id="synonymModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Synonym</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Failed search term</label>
+                    <input type="text" class="form-control" id="synonym-term" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Maps to</label>
+                    <input type="text" class="form-control" id="synonym-target" list="synonym-suggestions" placeholder="e.g. victron">
+                    <datalist id="synonym-suggestions">
+                        <?php foreach ($admin['suggestionTerms'] ?? [] as $term): ?>
+                        <option value="<?= $term ?>">
+                        <?php endforeach; ?>
+                    </datalist>
+                    <div class="form-text" id="synonym-suggestion"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-synonym-btn">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="<?= $cspNonce ?>">
+// Config for external JS
+window.searchAnalyticsConfig = {
+    actionUrl: '<?= $adminUrl('search-analytics/action/') ?>'
+};
+</script>
+<script src="/assets/admin/js/list-view.js<?= $adminAssetVersion('/assets/admin/js/list-view.js') ?>"></script>
+<script src="/assets/services/osmium-search-analytics/search-analytics.js<?= $adminAssetVersion('/assets/services/osmium-search-analytics/search-analytics.js') ?>"></script>
