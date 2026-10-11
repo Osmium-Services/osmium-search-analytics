@@ -1,7 +1,7 @@
 {
     "id": "osmium-search-analytics",
     "name": "Osmium Search Analytics",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "Records what customers search for in the shop, shows the top and zero-result searches in admin, and adds a search synonym in one click from a failed search",
     "category": "shop",
     "author": {
@@ -21,6 +21,9 @@
     "hooks": {
         "search.performed": [
             "Osmium\\Services\\SearchAnalytics\\Models\\SearchHooks::searchPerformed"
+        ],
+        "mcp.tools": [
+            "Osmium\\Services\\SearchAnalytics\\Models\\SearchMcp::tools"
         ]
     },
     "admin": {
