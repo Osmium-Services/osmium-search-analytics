@@ -1,7 +1,7 @@
 {
     "id": "osmium-search-analytics",
     "name": "Osmium Search Analytics",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "Records what customers search for in the shop, shows the top and zero-result searches in admin, and adds a search synonym in one click from a failed search",
     "category": "shop",
     "author": {
@@ -34,6 +34,7 @@
                     "id": "search-analytics",
                     "label": "Search Analytics",
                     "icon": "bx bx-search-alt",
+                    "color": "#0d6efd",
                     "placement": "top",
                     "route": "admin/search-analytics",
                     "activePattern": "admin/search-analytics*",
