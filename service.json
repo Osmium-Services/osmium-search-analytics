@@ -1,7 +1,7 @@
 {
     "id": "osmium-search-analytics",
     "name": "Osmium Search Analytics",
-    "version": "0.2.3",
+    "version": "0.3.0",
     "description": "Records what customers search for in the shop, shows the top and zero-result searches in admin, and adds a search synonym in one click from a failed search",
     "category": "shop",
     "author": {
@@ -11,8 +11,7 @@
     "requires": {
         "osmium": ">=1.0.0",
         "php": ">=8.1",
-        "services": [],
-        "shop": true
+        "services": ["osmium-shop"]
     },
     "autoload": [
         "models"
