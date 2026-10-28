@@ -16,7 +16,6 @@ return [
         'iconClass' => 'text-success',
         'note' => 'Last 30 days',
         'noun' => ['search', 'searches'],
-        'datatable' => false,
         'emptyText' => 'No searches yet',
         'columns' => [
             ['key' => 'search_term', 'label' => 'Search Term', 'type' => 'text', 'code' => true, 'fill' => true],
@@ -33,7 +32,6 @@ return [
         'iconClass' => 'text-danger',
         'note' => 'No results returned',
         'noun' => ['search', 'searches'],
-        'datatable' => false,
         'emptyText' => 'No failed searches yet',
         'rowData' => ['search_term', 'suggestion'],
         'columns' => [
