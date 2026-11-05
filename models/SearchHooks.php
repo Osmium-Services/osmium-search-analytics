@@ -21,4 +21,15 @@ class SearchHooks
 
         (new SearchLog($payload['dataSource']))->record($term, (int) $payload['resultCount']);
     }
+
+    /**
+     * search.synonyms: the shop asks for every term and the words it should also match.
+     *
+     * @param array{dataSource: object} $payload
+     * @return array<string, string[]>|null null when there are none
+     */
+    public static function synonyms(array $payload): ?array
+    {
+        return (new SearchSynonyms($payload['dataSource']))->all() ?: null;
+    }
 }

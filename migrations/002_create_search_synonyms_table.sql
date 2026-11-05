@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS {PREFIX}search_synonyms (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    term VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    target VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_term_target (term, target)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -1,7 +1,7 @@
 {
     "id": "osmium-search-analytics",
     "name": "Osmium Search Analytics",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "description": "Records what customers search for in the shop, shows the top and zero-result searches in admin, and adds a search synonym in one click from a failed search",
     "category": "shop",
     "author": {
@@ -20,6 +20,9 @@
     "hooks": {
         "search.performed": [
             "Osmium\\Services\\SearchAnalytics\\Models\\SearchHooks::searchPerformed"
+        ],
+        "search.synonyms": [
+            "Osmium\\Services\\SearchAnalytics\\Models\\SearchHooks::synonyms"
         ],
         "mcp.tools": [
             "Osmium\\Services\\SearchAnalytics\\Models\\SearchMcp::tools"
@@ -56,6 +59,6 @@
         }
     },
     "setup": {
-        "postInstallNote": "Searches are recorded from now on (one row per term per day, no visitor details). Look under Shop > Search Analytics for the top and zero-result searches of the last 30 days, and use Add synonym on a failed search that has a suggestion. Synonyms are saved to the shop's search-synonyms.php, which core search reads whether or not this service is installed."
+        "postInstallNote": "Searches are recorded from now on (one row per term per day, no visitor details). Look under Shop > Search Analytics for the top and zero-result searches of the last 30 days, and use Add synonym on a failed search that has a suggestion. Synonyms are saved by this service and the shop's search uses them, so they apply only while it is installed."
     }
 }

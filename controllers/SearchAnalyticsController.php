@@ -7,7 +7,7 @@ namespace Osmium\Services\SearchAnalytics\Controllers;
 use Osmium\Modules\Admin\Core\AdminController;
 use Osmium\Services\SearchAnalytics\Models\SearchLog;
 use Osmium\Services\SearchAnalytics\Models\SearchTerms;
-use Osmium\Services\SearchAnalytics\Models\SynonymFile;
+use Osmium\Services\SearchAnalytics\Models\SearchSynonyms;
 
 /**
  * Search analytics: what customers searched for in the last 30 days, the searches that found nothing,
@@ -22,8 +22,7 @@ class SearchAnalyticsController extends AdminController
     public function index(): void
     {
         $log = new SearchLog($this->osmium->dataSource);
-        $synonymFile = new SynonymFile();
-        $synonyms = $synonymFile->load();
+        $synonyms = (new SearchSynonyms($this->osmium->dataSource))->all();
 
         $suggestionTerms = SearchTerms::suggestionTerms(\array_keys($synonyms), $log->brandNames(), $log->modelNames());
         $failed = SearchTerms::withSuggestions(SearchTerms::withoutSynonyms($log->failed(), $synonyms), $suggestionTerms);
@@ -54,7 +53,7 @@ class SearchAnalyticsController extends AdminController
 
         $term = \strtolower(\trim($input['term'] ?? ''));
         $target = \strtolower(\trim($input['target'] ?? ''));
-        $error = (new SynonymFile())->add($term, $target);
+        $error = (new SearchSynonyms($this->osmium->dataSource))->add($term, $target);
 
         $this->respond($error === null ? ['success' => true, 'term' => $term, 'target' => $target] : ['success' => false, 'error' => $error]);
     }

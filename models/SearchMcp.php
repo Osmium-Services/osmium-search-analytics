@@ -42,7 +42,7 @@ class SearchMcp
     public static function searchSummary(array $call): array
     {
         $log = new SearchLog($call['dataSource']);
-        $synonyms = (new SynonymFile())->load();
+        $synonyms = (new SearchSynonyms($call['dataSource']))->all();
 
         $failed = $log->failed();
         $needSynonym = SearchTerms::withoutSynonyms($failed, $synonyms);
