@@ -1,7 +1,7 @@
 # Osmium Search Analytics service
 
 Records what customers search for in the shop, shows the top and zero-result searches of the last 30 days, and adds a
-search synonym in one click from a failed search. Repo `Osmium-Services/osmium-search-analytics`, v0.2.1<!--v:osmium-search-analytics-->, category shop.
+search synonym in one click from a failed search. Repo `Osmium-Services/osmium-search-analytics`, v0.4.0<!--v:osmium-search-analytics-->, category shop.
 Extracted 2026-10-10. See [[Core and Services]].
 
 ## What stays in core
