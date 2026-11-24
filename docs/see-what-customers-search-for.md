@@ -1,6 +1,7 @@
 ---
 title: See what customers search for
 tags: search, search analytics, failed searches, zero results, synonym, shop search
+page: admin/search-analytics
 ---
 
 **Search Analytics** records what customers type into your shop search.
